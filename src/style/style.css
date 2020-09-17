@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 :root {
-	--checkbox-size: 100px;
+	--checkbox-size: 30px;
 	--bg-color: #FFA69E;
 	--checkbox-color: #8C8C8C;
 	--hover-color: #FF686B;

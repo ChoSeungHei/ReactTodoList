@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const InputBox = styled.input`
     border: none;
-    height: 10%;
+    height: 40px;
     width: 90%;
     line-height: 40px;
     outline:none;
