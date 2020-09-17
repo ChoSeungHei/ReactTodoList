@@ -10,38 +10,63 @@ const TextLine = styled.span`
     margin-left: 5px;
 `;
 
+const NormalLine = styled.span`
+    margin-left: 5px;
+`;
 const Container = styled.div`
     display:flex;
     align-items:center;
     margin: 10px;
-`
+`;
+
 const TodoItem = (props) => {
-    const {flag, removeItem, text, id} = props;
-
-    const [state,setState] = useState(flag);
-
-    const handleClick = () => {
-        setState(!state);
-    }
+    const {flag, removeItem, text, id,remove,handleCheck} = props;
 
     return(
-        <Container>
-            <input type="checkbox" id={id} checked={state} onChange={handleClick}/>
-                <label htmlFor={id}>
-                    <div className="tick"></div>
-                </label>
+        <div>
             {
-                state ? (
-                    <TextLine>{text}</TextLine>
-                ):(<span>{text}</span>)
+                !remove ?(
+                    <div>
+                        <Container>
+                            <input type="checkbox" id={id} checked={flag} onChange={(e)=>{handleCheck(id)}}/>
+                                <label htmlFor={id}>
+                                    <div className="tick"></div>
+                                </label>
+                            {
+                                flag ? (
+                                    <TextLine>{text}</TextLine>
+                                ):(<NormalLine>{text}</NormalLine>)
+                            }
+                            <IconContext.Provider value={{ color:"#555", size:"1.5em", className: "global-class-name" }}>
+                                <IoMdClose onClick={(e) => {
+                                    e.stopPropagation(); // onToggle 이 실행되지 않도록 함
+                                    removeItem(id);
+                                }}/>
+                            </IconContext.Provider>
+                            
+                        </Container>
+                    </div>
+                ):(
+                    <div className="animate__animated animate__fadeOutLeft">
+                        <Container>
+                            <input type="checkbox" id={id} checked={flag} onChange={handleCheck}/>
+                                <label htmlFor={id}>
+                                    <div className="tick"></div>
+                                </label>
+                            {
+                                flag ? (
+                                    <TextLine>{text}</TextLine>
+                                ):(<span>{text}</span>)
+                            }
+                            <IconContext.Provider value={{ color:"#555", size:"1.5em", className: "global-class-name" }}>
+                                <IoMdClose/>
+                            </IconContext.Provider>
+                            
+                        </Container>
+                    </div>
+                )
             }
-            <IconContext.Provider value={{ color:"#555", size:"1.5em", className: "global-class-name" }}>
-                <IoMdClose onClick={(e) => {
-                e.stopPropagation(); // onToggle 이 실행되지 않도록 함
-                removeItem(id)}}/>
-            </IconContext.Provider>
-            
-        </Container>
+        </div>
     );
 }
 

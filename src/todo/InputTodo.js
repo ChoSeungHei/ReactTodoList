@@ -41,15 +41,21 @@ const InputTodo = () => {
     const [id,setId] = useState(0);
 
     const handleSubmit = () => {
-        setTodoTexts(todoTexts=>[...todoTexts,{id:id ,text: todoText,flag: false}]);
+        setTodoTexts(todoTexts=>[...todoTexts,{id:id ,text: todoText,flag: false,remove: false}]);
         setTodoText('');
         var temp = id;
         setId(++temp);
     }
 
     const removeItem = (id) => {
-        //요소 삭제
-        setTodoTexts(todoTexts.filter(todo => todo.id !== id))
+        setTodoTexts(todoTexts.map(todo => todo.id == id ? ({...todo, remove: true}):todo));
+        setTimeout(() => {
+            setTodoTexts(todoTexts.filter(todo => todo.id !== id));
+        }, 500);
+    }
+
+    const handleCheck = (id) => {
+        setTodoTexts(todoTexts.map(todo => todo.id == id ? ({...todo, flag: !todo.flag}):todo));
     }
     
     const changeTodo = (e) => {
@@ -60,7 +66,7 @@ const InputTodo = () => {
         <Container>
             <InputBox maxlength="10" placeholder="Input Text" onChange={changeTodo} value={todoText}/>
             <SubmitBtn onClick={handleSubmit}>ADD</SubmitBtn>
-            <TodoList todoTexts={todoTexts} removeItem={removeItem}/>
+            <TodoList todoTexts={todoTexts} removeItem={removeItem} handleCheck={handleCheck}/>
         </Container>
     );
 }

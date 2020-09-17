@@ -11,9 +11,9 @@ const Container  = styled.div`
 `;
 
 const TodoList = props => {
-    const {todoTexts, removeItem} = props;
+    const {todoTexts, removeItem,handleCheck} = props;
     
-    const printTodoList = todoTexts.map((ary,index)=>(<TodoItem key={index} id={ary.id} text={ary.text} flag={ary.flag} removeItem={removeItem}/>))
+    const printTodoList = todoTexts.map((ary,index)=>(<TodoItem key={index} id={ary.id} text={ary.text} flag={ary.flag} removeItem={removeItem} remove={ary.remove} handleCheck={handleCheck}/>))
 
 
     return(
