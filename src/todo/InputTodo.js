@@ -41,10 +41,13 @@ const InputTodo = () => {
     const [id,setId] = useState(0);
 
     const handleSubmit = () => {
-        setTodoTexts(todoTexts=>[...todoTexts,{id:id ,text: todoText,flag: false,remove: false}]);
-        setTodoText('');
-        var temp = id;
-        setId(++temp);
+        if(todoText != "")
+        {
+            setTodoTexts(todoTexts=>[...todoTexts,{id:id ,text: todoText,flag: false,remove: false}]);
+            setTodoText('');
+            var temp = id;
+            setId(++temp);
+        }
     }
 
     const removeItem = (id) => {
@@ -52,6 +55,7 @@ const InputTodo = () => {
         setTimeout(() => {
             setTodoTexts(todoTexts.filter(todo => todo.id !== id));
         }, 500);
+        
     }
 
     const handleCheck = (id) => {
@@ -62,9 +66,16 @@ const InputTodo = () => {
         setTodoText(e.target.value);
     }
 
+    const onKeyPress = (e) => {
+        if(e.key == 'Enter')
+        {
+            handleSubmit();
+        }
+    }
+
     return(
         <Container>
-            <InputBox maxlength="10" placeholder="Input Text" onChange={changeTodo} value={todoText}/>
+            <InputBox maxlength="10" placeholder="Input Text" autoFocus onChange={changeTodo} value={todoText} onKeyPress={onKeyPress}/>
             <SubmitBtn onClick={handleSubmit}>ADD</SubmitBtn>
             <TodoList todoTexts={todoTexts} removeItem={removeItem} handleCheck={handleCheck}/>
         </Container>
