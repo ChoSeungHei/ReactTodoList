@@ -6,13 +6,17 @@ import reset from 'styled-reset';
 const Container = styled.div`
     position: absolute;
     top: 50%; left: 50%;
-    width: 40%; height: 45%;
-    margin-left: -20%;
-    margin-top: -15%;
+    width: 90%; height: 450px;
+    margin: -225px 0px 0px -45%;
     padding: 2%;
     background-color: rgba(255, 255, 255, 0.8);
     
     color:#555;
+    @media(min-width:768px)
+    {
+        width: 40%; height: 450px;
+        margin: -225px 0px 0px -20%;
+    }
 `;
 
 const GlobalStyles = createGlobalStyle`
@@ -31,13 +35,7 @@ const GlobalStyles = createGlobalStyle`
     }
     body {
         font-family: "NanumGothic";
-        width:100%;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
         background: linear-gradient( to bottom, #FF4A4F, #FF5C7D );
-        background-size: cover;
     }
 `;
 
@@ -53,13 +51,16 @@ const Title = styled.div`
     font-weight: 600;
     text-align:center;
 `;
+
+const Progress = styled.progress`
+    text-align: left;
+`;
 const Template = () => {
     const [today,setToday] = useState('');
 
     useEffect(()=>{
         setToday(getToday());
     });
-
 
     const getToday = () => {
         let today = new Date();  
@@ -82,6 +83,7 @@ const Template = () => {
         
         <>
             <GlobalStyles/>
+            <Progress value="22" max="100"/>
             <Container>
                 <Title>To-Do List</Title>
                 <DateTitle>{today}</DateTitle>

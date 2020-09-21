@@ -7,17 +7,27 @@ const Container = styled.div`
     margin: 0;
     height: 100%;
     width: 100%;
+    text-align:left;
+    @media(min-width:768px)
+    {
+        text-align:center;
+    }
 `;
 
 const InputBox = styled.input`
     border: none;
     height: 40px;
-    width: 90%;
+    width : 85%;
     line-height: 40px;
     outline:none;
     padding-left: 3px;
     padding-rignt: 3px;
     margin: 0;
+
+    @media(min-width:768px)
+    {
+        width : 90%;
+    }
 `;
 
 const SubmitBtn = styled.button`
@@ -25,13 +35,18 @@ const SubmitBtn = styled.button`
     background-color: rgba(0,0,0,0);
     color: #78B6FF;
     font-weight: 800;
-    width: 9%;
-    margin-left: 1%;
+    width: 10%;
+    margin-left: 2%;
     &:hover {
     color: #1981FF;
     }
     &:focus {
         outline: none;
+    }
+    @media(min-width:768px)
+    {
+        width: 9%;
+        margin-left: 1%;
     }
 `;
 
