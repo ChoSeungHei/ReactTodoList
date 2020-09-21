@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import TodoList from './TodoList';
 import styled from 'styled-components';
 import reset from 'styled-reset';
@@ -40,6 +40,18 @@ const InputTodo = () => {
     const [todoTexts,setTodoTexts] = useState([]);
     const [id,setId] = useState(0);
 
+    useEffect(()=>{
+        var temp = JSON.parse(localStorage.getItem('TODO_VALUES'));
+        var todo_id = localStorage.getItem('TODO_ID');
+        console.log(todo_id);
+
+        if(temp !== null)
+        {
+            setTodoTexts(temp);
+            setId(todo_id);
+        }
+    },[]);
+
     const handleSubmit = () => {
         if(todoText != "")
         {
@@ -47,6 +59,14 @@ const InputTodo = () => {
             setTodoText('');
             var temp = id;
             setId(++temp);
+
+            var ary = [...todoTexts,{id:id ,text: todoText,flag: false,remove: false}];
+
+            localStorage.removeItem('TODO_VALUES');
+            localStorage.setItem('TODO_VALUES', JSON.stringify(ary));
+
+            localStorage.removeItem('TODO_ID');
+            localStorage.setItem('TODO_ID',++temp);
         }
     }
 
@@ -54,12 +74,19 @@ const InputTodo = () => {
         setTodoTexts(todoTexts.map(todo => todo.id == id ? ({...todo, remove: true}):todo));
         setTimeout(() => {
             setTodoTexts(todoTexts.filter(todo => todo.id !== id));
+            var temp = todoTexts.filter(todo => todo.id !== id);
+
+            localStorage.removeItem('TODO_VALUES');
+            localStorage.setItem('TODO_VALUES',JSON.stringify(temp));
         }, 500);
-        
     }
 
     const handleCheck = (id) => {
         setTodoTexts(todoTexts.map(todo => todo.id == id ? ({...todo, flag: !todo.flag}):todo));
+
+        var temp = todoTexts.map(todo => todo.id == id ? ({...todo, flag: !todo.flag}):todo);
+        localStorage.removeItem('TODO_VALUES');
+        localStorage.setItem('TODO_VALUES',JSON.stringify(temp));
     }
     
     const changeTodo = (e) => {
