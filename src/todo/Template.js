@@ -50,11 +50,13 @@ const Title = styled.div`
     margin-bottom: 10px;
     font-weight: 600;
     text-align:center;
+    margin-top:10px;
+    @media(min-width:768px)
+    {
+        margin-top:0px;
+    }
 `;
 
-const Progress = styled.progress`
-    text-align: left;
-`;
 const Template = () => {
     const [today,setToday] = useState('');
 
@@ -83,7 +85,6 @@ const Template = () => {
         
         <>
             <GlobalStyles/>
-            <Progress value="22" max="100"/>
             <Container>
                 <Title>To-Do List</Title>
                 <DateTitle>{today}</DateTitle>
