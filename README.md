@@ -2,7 +2,7 @@
 
 
 ## Description
-This is react TodoList.  
+Hello, This is react TodoList.  
 It is most basic structure of React. So this example will help if you are a beginner.  
 [Preview Link](https://choseunghei.github.io/ReactTodoList/)
 
